@@ -4,6 +4,7 @@ public class Tests {
             a.apply(s.charAt(i));
         }
     }
+    // test
     public static void test_automata() {
         Automaton a1 = new AutomatonImpl();
         a1.addState(0,true,false);
