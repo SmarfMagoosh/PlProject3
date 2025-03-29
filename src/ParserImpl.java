@@ -6,7 +6,6 @@ enum Term {
 
 public class ParserImpl extends Parser {
     private Expr currExpr = null;
-    private Stack<Term> termStack = new Stack<>();
 
     private TokenList filterWS(TokenList ts) {
         if (ts == null) {
@@ -35,7 +34,6 @@ public class ParserImpl extends Parser {
     @Override
     public Expr do_parse() throws Exception {
         tokens = filterWS(tokens);
-        termStack.push(Term.T);
         return parseT();
     }
 
@@ -43,10 +41,10 @@ public class ParserImpl extends Parser {
         Expr left = parseF();
         if (peek(TokenType.PLUS, 0)) {
             consume(TokenType.PLUS);
-            return new PlusExpr(left, parseF());
+            return new PlusExpr(left, parseT());
         } else if (peek(TokenType.MINUS, 0)) {
             consume(TokenType.MINUS);
-            return new MinusExpr(left, parseF());
+            return new MinusExpr(left, parseT());
         }
         return left;
     }
